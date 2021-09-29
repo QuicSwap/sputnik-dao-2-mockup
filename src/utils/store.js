@@ -21,6 +21,13 @@ const defaultState = {
       switchNew: false,
       switchExpired: false,
     },
+    gasOptions: {
+      value: "300000000000000",
+      editable: false,
+      minValue: 30,
+      maxValue: 300,
+      step: 10
+    },
     lastShownProposal: 0,
     lastJsonData: 0,
     ...readDefaultState(),
