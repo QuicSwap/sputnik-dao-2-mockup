@@ -1,3 +1,5 @@
+import Decimal from "decimal.js";
+
 export const yoktoNear = 1000000000000000000000000;
 export const proposalsReload = 60000;
 export const updatesJsonUrl = 'https://raw.githubusercontent.com/zavodil/sputnik-dao-updates/master/updates.json?t=';
@@ -46,7 +48,13 @@ export const parseForumUrl = (url) => {
   }
 }
 
+export function toTeraGas(value){
+  return new Decimal(value)*1e12;
+}
 
+export function fromTeraGas(value){
+  return new Decimal(value).div(1e12);
+}
 
 
 
