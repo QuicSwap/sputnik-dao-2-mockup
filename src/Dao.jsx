@@ -53,16 +53,13 @@ const Dao = () => {
   const [proposals, setProposals] = useState(null);
   const [showError, setShowError] = useState(null);
   const [addProposalModal, setAddProposalModal] = useState(false);
-  const [newProposalCouncilMember, setNewProposalCouncilMember] =
-    useState(false);
-  const [removeProposalCouncilMember, setRemoveProposalCouncilMember] =
-    useState(false);
+  const [newProposalCouncilMember, setNewProposalCouncilMember] = useState(false);
+  const [removeProposalCouncilMember, setRemoveProposalCouncilMember] = useState(false);
   const [newProposalPayout, setNewProposalPayout] = useState(false);
   const [newProposalToken, setNewProposalToken] = useState(false);
   const [newProposalCustomCall, setNewProposalCustomCall] = useState(false);
   const [selectDao, setSelectDao] = useState(false);
-  const [showNewProposalNotification, setShowNewProposalNotification] =
-    useState(false);
+  const [showNewProposalNotification, setShowNewProposalNotification] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
   const [daoState, setDaoState] = useState(0);
   const [daoConfig, setDaoConfig] = useState(null);

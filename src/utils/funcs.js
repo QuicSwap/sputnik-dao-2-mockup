@@ -48,11 +48,11 @@ export const parseForumUrl = (url) => {
   }
 }
 
-export function toTeraGas(value){
+export const toTeraGas = (value) => {
   return new Decimal(value)*1e12;
 }
 
-export function fromTeraGas(value){
+export const fromTeraGas = (value) => {
   return new Decimal(value).div(1e12);
 }
 

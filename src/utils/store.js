@@ -26,7 +26,7 @@ const defaultState = {
       editable: false,
       minValue: 30,
       maxValue: 300,
-      step: 10
+      step: 10,
     },
     lastShownProposal: 0,
     lastJsonData: 0,

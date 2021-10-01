@@ -32,6 +32,7 @@ const nearConfig = getConfig(process.env.NODE_ENV || "development");
 const provider = new nearApi.providers.JsonRpcProvider(nearConfig.nodeUrl);
 const connection = new nearApi.Connection(nearConfig.nodeUrl, provider, {});
 
+/*
 async function accountExists(accountId) {
   try {
     await new nearApi.Account(connection, accountId).state();
@@ -39,6 +40,18 @@ async function accountExists(accountId) {
   } catch (error) {
     console.log(error);
     return false;
+  }
+}
+*/
+
+async function accountExists(accountId) {
+  try {
+    const state = await new nearApi.Account(connection, accountId).state();
+    const amountYokto = new Decimal(state.amount);
+    return {accountExists: true, daoState: amountYokto.div(yoktoNear).toFixed(2)};
+  } catch (error) {
+    console.log(error);
+    return {accountExists: false, daoState: 0};
   }
 }
 
@@ -105,7 +118,7 @@ const NewDao = (props) => {
       e.target.amount.className += " is-valid";
     }
 
-    if (!nearAccountValid) {
+    if (!nearAccountValid.accountExists) {
       e.target.council.className += " is-invalid";
       e.target.council.classList.remove("is-valid");
       setCouncil({
@@ -119,7 +132,7 @@ const NewDao = (props) => {
       e.target.council.className += " is-valid";
     }
 
-    if (validatePurpose && validateAmount && nearAccountValid) {
+    if (validatePurpose && validateAmount && nearAccountValid.accountExists) {
       const argsList = {
         config: {
           name: daoName.value,
@@ -345,6 +358,7 @@ const NewDao = (props) => {
   );
 };
 
+/*
 async function getDaoState(dao) {
   const nearConfig = getConfig(process.env.NODE_ENV || "development");
   const provider = new nearApi.providers.JsonRpcProvider(nearConfig.nodeUrl);
@@ -358,6 +372,7 @@ async function getDaoState(dao) {
     return 0;
   }
 }
+*/
 
 const DaoInfo = (props) => {
   const contractId = props.item;
@@ -384,7 +399,8 @@ const DaoInfo = (props) => {
     if (contractId !== "") {
       accountExists(contractId)
         .then((r) => {
-          setDaoExists(r);
+          setDaoExists(r.accountExists);
+          setDaoState(r.daoState);
         })
         .catch((e) => {
           console.log(e);
@@ -392,6 +408,7 @@ const DaoInfo = (props) => {
     }
   }, []);
 
+  /*
   useEffect(() => {
     if (contractId !== "") {
       getDaoState(contractId)
@@ -403,7 +420,7 @@ const DaoInfo = (props) => {
         });
     }
   }, []);
-
+*/
   useEffect(() => {
     contract.get_config().then((data) => {
       setDaoConfig(data);
@@ -426,7 +443,7 @@ const DaoInfo = (props) => {
     <>
       <MDBCard
         className="m-3"
-        key={props.key}
+        key={props.itemkey}
         color="grey darken-1"
         style={{
           borderTopLeftRadius: 25,
@@ -620,9 +637,8 @@ const Selector = (props) => {
     <div>
       <MDBCard className="p-md-3 m-md-3 stylish-color-dark">
         <MDBCardHeader
-          className="text-center white-text"
-          titleClass="w-100"
-          tag="p"
+          className="text-center white-text w-100"
+          tag="span"
         >
           Please select or create DAO
           <hr color="white" />
@@ -646,7 +662,7 @@ const Selector = (props) => {
                   <MDBCol lg="6" md="12">
                     <DaoInfo
                       item={item}
-                      key={key}
+                      itemkey={key}
                       handleSelect={handleSelect}
                     />
                   </MDBCol>
