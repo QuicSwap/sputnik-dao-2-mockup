@@ -2235,32 +2235,7 @@ const Dao = () => {
                       *the deposit will be refunded if proposal rejected or
                       expired.
                     </MDBBox>
-                    <MDBContainer className="m-0 p-0">
-                      <MDBInputGroup
-                          style = {{
-                            flexWrap: "nowrap",
-                            alignItems: "center",
-                          }}
-                          material
-                          inputs={
-                            <div className="custom-input w-100">
-                              <input
-                                  value={fromTeraGas(gasAmount.value).toFixed()}
-                                  name="gasAmount"
-                                  type="number"
-                                  min={gasAmount.minValue}
-                                  max={gasAmount.maxValue}
-                                  step={gasAmount.step}
-                                  onChange={changeHandler}
-                                  onBlur={changeGasHandler}
-                                  className="w-100"
-                              />
-                            </div>
-                          }
-                          prepend="gas"
-                          append="TGas"
-                      />
-                    </MDBContainer>
+                    {GasInput}
                   </MDBModalBody>
                   <MDBModalFooter className="justify-content-center">
                     <MDBBtn color="elegant" type="submit">
