@@ -521,7 +521,7 @@ const Dao = () => {
   };
 
   const changeGasHandler = () => {
-    setGasAmount({...gasAmount});
+    setGasAmount({...gasAmount, editable: !gasAmount.editable});
     if (fromTeraGas(gasAmount.value)<gasAmount.minValue){
       setGasAmount({...gasAmount, value: toTeraGas(gasAmount.minValue).toFixed()});
     }
