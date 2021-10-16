@@ -78,7 +78,8 @@ export const Proposal = (props) => {
         {
           id: props.id,
           action: vote,
-        }
+        },
+        new Decimal(gasAmount.value).toString()
       );
     } catch (e) {
       console.log(e);
@@ -104,12 +105,12 @@ export const Proposal = (props) => {
   };
 
   const handleGasEdit = () => {
-    setGasAmount({...gasAmount});
+    setGasAmount({...gasAmount, editable: !gasAmount.editable});
     if (fromTeraGas(gasAmount.value)<gasAmount.minValue){
-      setGasAmount({...gasAmount, value: toTeraGas(gasAmount.minValue).toFixed()});
+      setGasAmount({...gasAmount, editable: !gasAmount.editable, value: toTeraGas(gasAmount.minValue).toFixed()});
     }
     if (fromTeraGas(gasAmount.value)>gasAmount.maxValue){
-      setGasAmount({...gasAmount, value: toTeraGas(gasAmount.maxValue).toFixed()});
+      setGasAmount({...gasAmount, editable: !gasAmount.editable, value: toTeraGas(gasAmount.maxValue).toFixed()});
     }
   }
 
@@ -723,6 +724,60 @@ export const Proposal = (props) => {
                     <div className="clearfix" />
                   </>
                 ) : null}
+
+                {
+                  props.daoPolicy.roles[1].kind.Group.includes(
+                      window.walletConnection.getAccountId()
+                  )  ? (
+                      <>
+                        <div className="float-left text-muted h4-responsive">gas</div>
+                        <MDBBox
+                          className="float-right h4-responsive white-text"
+                          style={{ width: "80%" }}
+                        >
+                          <div className="form-group d-flex justify-content-end align-items-center">
+                            {  gasAmount.editable ? (
+                              <div className="def-number-input number-input">
+                                <button onClick={decrease} className="minus">
+                                  <i className="fa fa-minus" aria-hidden="true"></i>
+                                </button>
+                                <input
+                                  className="quantity"
+                                  name="gas"
+                                  value={fromTeraGas(gasAmount.value).toFixed()}
+                                  onChange={handleGasChange}
+                                  type="number"
+                                />
+                                <button onClick={increase} className="plus">
+                                  <i className="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                              </div>
+                            ) : (
+                              <>
+                                <span>
+                                  {fromTeraGas(gasAmount.value).toFixed()}
+                                </span>
+                              </>
+                            )}
+                            {"TGas"}
+                            <MDBBtn
+                                style={{ borderRadius: 50 }}
+                                size="sm"
+                                floating
+                                onClick={handleGasEdit}
+                            >
+                              {
+                                !gasAmount.editable ?  <MDBIcon icon="pen" size="2x" className="white-text m-1 p-1"/>:
+                                    <MDBIcon icon="save" size="2x" className="white-text m-1 p-1"/>
+                              }
+                            </MDBBtn>
+                          </div>
+                        </MDBBox>
+                        <br/>
+                        <div className="clearfix" />
+                      </>
+                  ) : null
+                }
 
                 {!jsonError &&
                 props.data.kind.FunctionCall &&

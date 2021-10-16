@@ -879,7 +879,7 @@ const Dao = () => {
                 },
               },
             },
-            new Decimal("30000000000000").toString(),
+            new Decimal(gasAmount.value).toString(),
             daoPolicy.proposal_bond.toString()
           );
         } catch (e) {
@@ -950,7 +950,7 @@ const Dao = () => {
                 },
               },
             },
-            new Decimal("30000000000000").toString(),
+            new Decimal(gasAmount.value).toString(),
             daoPolicy.proposal_bond.toString()
           );
         } catch (e) {
@@ -1063,7 +1063,7 @@ const Dao = () => {
                 },
               },
             },
-            new Decimal("30000000000000").toString(),
+            new Decimal(gasAmount.value).toString(),
             daoPolicy.proposal_bond.toString()
           );
         } catch (e) {
@@ -1148,14 +1148,14 @@ const Dao = () => {
                         method_name: "create_token",
                         args: args,
                         deposit: "5000000000000000000000000",
-                        gas: new Decimal(gasAmount.value).toString(),
+                        gas: "150000000000000",
                       },
                     ],
                   },
                 },
               },
             },
-            new Decimal("30000000000000").toString(),
+            new Decimal(gasAmount.value).toString(),
             daoPolicy.proposal_bond.toString()
           );
         } catch (e) {
@@ -1267,14 +1267,14 @@ const Dao = () => {
                           e.target.proposalCustomMethodName.value.trim(),
                         args: args,
                         deposit: depositYokto,
-                        gas: new Decimal(gasAmount.value).toString(),
+                        gas: "150000000000000",
                       },
                     ],
                   },
                 },
               },
             },
-            new Decimal("30000000000000").toString(),
+            new Decimal(gasAmount.value).toString(),
             daoPolicy.proposal_bond.toString()
           );
         } catch (e) {
