@@ -308,7 +308,7 @@ const Dao = () => {
     setAddProposalModal(false);
   };
 
-  const nearConfig = getConfig(process.env.NODE_ENV || "development");
+  const nearConfig = getConfig("development");
   const provider = new nearApi.providers.JsonRpcProvider(nearConfig.nodeUrl);
   const connection = new nearApi.Connection(nearConfig.nodeUrl, provider, {});
 

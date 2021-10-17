@@ -5,6 +5,7 @@ function getConfig(env) {
 
     case 'production':
     case 'mainnet':
+      console.log("Im in mainnet");
       return {
         networkId: 'mainnet',
         nodeUrl: 'https://rpc.mainnet.near.org',

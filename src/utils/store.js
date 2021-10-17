@@ -11,9 +11,9 @@ const readDefaultState = () => {
 const defaultState = {
   loading: false,
   config: {
-    factory: getConfig(process.env.NODE_ENV || 'development').contractName,
+    factory: getConfig('development').contractName,
     contract: '',
-    network: getConfig(process.env.NODE_ENV || 'development'),
+    network: getConfig('development'),
     filter: {
       switchAll: true,
       switchInProgress: false,
