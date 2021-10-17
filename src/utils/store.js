@@ -8,12 +8,14 @@ const readDefaultState = () => {
   }
 }
 
+const urlParams = new URLSearchParams(window.location.search);
+
 const defaultState = {
   loading: false,
   config: {
-    factory: getConfig(process.env.NODE_ENV || 'development').contractName,
+    factory: getConfig(urlParams.has("mainnet") ? "mainnet" : "development").contractName,
     contract: '',
-    network: getConfig(process.env.NODE_ENV || 'development'),
+    network: getConfig(urlParams.has("mainnet") ? "mainnet" : "development"),
     filter: {
       switchAll: true,
       switchInProgress: false,

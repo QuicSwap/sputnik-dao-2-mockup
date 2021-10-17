@@ -28,7 +28,8 @@ import * as nearApi from "near-api-js";
 import getConfig from "./config";
 
 /* MOVE TO UTILS */
-const nearConfig = getConfig(process.env.NODE_ENV || "development");
+const urlParams = new URLSearchParams(window.location.search);
+const nearConfig = getConfig(urlParams.has("mainnet") ? "mainnet" : "development");
 const provider = new nearApi.providers.JsonRpcProvider(nearConfig.nodeUrl);
 const connection = new nearApi.Connection(nearConfig.nodeUrl, provider, {});
 
@@ -360,7 +361,8 @@ const NewDao = (props) => {
 
 /*
 async function getDaoState(dao) {
-  const nearConfig = getConfig(process.env.NODE_ENV || "development");
+  const urlParams = new URLSearchParams(window.location.search);
+  const nearConfig = getConfig(urlParams.has("mainnet") ? "mainnet" : "development");
   const provider = new nearApi.providers.JsonRpcProvider(nearConfig.nodeUrl);
   const connection = new nearApi.Connection(nearConfig.nodeUrl, provider, {});
   try {

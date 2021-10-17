@@ -3,7 +3,8 @@ import {useGlobalState, useGlobalMutation} from './utils/container'
 import 'regenerator-runtime/runtime';
 
 import getConfig from './config'
-const nearConfig = getConfig(process.env.NODE_ENV || 'development')
+const urlParams = new URLSearchParams(window.location.search);
+const nearConfig = getConfig(urlParams.has("mainnet") ? "mainnet" : "development");
 
 export async function initContract() {
   const near = await connect(Object.assign({deps: {keyStore: new keyStores.BrowserLocalStorageKeyStore()}}, nearConfig))

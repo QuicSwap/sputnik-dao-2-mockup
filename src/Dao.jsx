@@ -308,7 +308,8 @@ const Dao = () => {
     setAddProposalModal(false);
   };
 
-  const nearConfig = getConfig(process.env.NODE_ENV || "development");
+  const urlParams = new URLSearchParams(window.location.search);
+  const nearConfig = getConfig(urlParams.has("mainnet") ? "mainnet" : "development");
   const provider = new nearApi.providers.JsonRpcProvider(nearConfig.nodeUrl);
   const connection = new nearApi.Connection(nearConfig.nodeUrl, provider, {});
 
