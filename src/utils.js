@@ -4,7 +4,7 @@ import 'regenerator-runtime/runtime';
 
 import getConfig from './config'
 const urlParams = new URLSearchParams(window.location.search);
-const nearConfig = getConfig(urlParams.has("mainnet") ? "mainnet" : "development");
+const nearConfig = getConfig(urlParams.get("env") == "mainnet" ? "mainnet" : "development");
 
 export async function initContract() {
   const near = await connect(Object.assign({deps: {keyStore: new keyStores.BrowserLocalStorageKeyStore()}}, nearConfig))

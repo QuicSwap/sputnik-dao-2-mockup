@@ -309,7 +309,7 @@ const Dao = () => {
   };
 
   const urlParams = new URLSearchParams(window.location.search);
-  const nearConfig = getConfig(urlParams.has("mainnet") ? "mainnet" : "development");
+  const nearConfig = getConfig(urlParams.get("env") == "mainnet" ? "mainnet" : "development");
   const provider = new nearApi.providers.JsonRpcProvider(nearConfig.nodeUrl);
   const connection = new nearApi.Connection(nearConfig.nodeUrl, provider, {});
 
@@ -380,22 +380,24 @@ const Dao = () => {
   }
 
   useEffect(async () => {
-    if (!firstRun) {
-      const interval = setInterval(async () => {
-        console.log("loading proposals");
+    setTimeout(() => {
+      if (!firstRun) {
+        const interval = setInterval(async () => {
+          console.log("loading proposals");
+          getProposals().then((r) => {
+            setProposals(r);
+            setShowLoading(false);
+          });
+        }, proposalsReload);
+        return () => clearInterval(interval);
+      } else {
         getProposals().then((r) => {
           setProposals(r);
           setShowLoading(false);
         });
-      }, proposalsReload);
-      return () => clearInterval(interval);
-    } else {
-      getProposals().then((r) => {
-        setProposals(r);
-        setShowLoading(false);
-      });
-      setFirstRun(false);
-    }
+        setFirstRun(false);
+      }
+    }, 2000);
   }, [stateCtx.config.contract, firstRun]);
 
   useEffect(() => {
@@ -1156,7 +1158,7 @@ const Dao = () => {
                 },
               },
             },
-            new Decimal("30000000000000").toString(),
+            new Decimal("300000000000000").toString(),
             daoPolicy.proposal_bond.toString()
           );
         } catch (e) {
@@ -1275,7 +1277,7 @@ const Dao = () => {
                 },
               },
             },
-            new Decimal("30000000000000").toString(),
+            new Decimal("300000000000000").toString(),
             daoPolicy.proposal_bond.toString()
           );
         } catch (e) {
